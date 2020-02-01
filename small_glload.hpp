@@ -3,7 +3,7 @@
 //small_glload.hpp
 // (C) 2019-2020 Arthur Brainville (Ybalrid)
 //
-//License: TBD
+//License: The Unlicense
 //
 //small, like, really, really small, nasty, bad, non-exhaustive OpenGL function loader.
 //
