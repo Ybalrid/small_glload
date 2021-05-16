@@ -17,23 +17,23 @@
 //  #include "small_glload.hpp"
 //
 //  To load functions call this:
-//  
+//
 //  small_glload_init();
 //
 //  If it failed, it returns false.
-//  
+//
 //
 // How it works:
 // -------------
 //
-//  Manually define the OpenGL function pointer we are going to use by doing the following 
+//  Manually define the OpenGL function pointer we are going to use by doing the following
 //
 //   1. define a "GLAPI PFN+GLNAMEOFFUNC+PROC glNameOFunc;" symbol here
 //   2. in small_glload.cpp, define it as "PFN+GLNAMEOFFUNC+PROC glNameOfFunc = nullptr;"
-//   3. add to small_glload_init() a call to small_glloader_get_proc_address like all the 
+//   3. add to small_glload_init() a call to small_glloader_get_proc_address like all the
 //      other ones
 //
-//  It could be extended to other platform just by providing a function pointer to 
+//  It could be extended to other platform just by providing a function pointer to
 //  small_glloader_get_proc_address into any function that take a string and return a void*
 
 //Hopefully a small 64k demo should be able to be made without the need to go use super
@@ -54,7 +54,7 @@
 #include <GL/GL.h>
 
 //Khronos Registry headers for API and extensions
-//They contains the function pointer types, and all the 
+//They contains the function pointer types, and all the
 //missing "#defines GL_MAGIC_NUMBER and "typedf GLtype"
 #include "gl/glext.h"
 #ifdef _WIN32
@@ -121,4 +121,6 @@ GLAPI PFNGLBINDFRAMEBUFFERPROC glBindFramebuffer;
 GLAPI PFNGLFRAMEBUFFERTEXTURE2DPROC glFramebufferTexture2D;
 GLAPI PFNGLTEXIMAGE2DMULTISAMPLEPROC glTexImage2DMultisample;
 GLAPI PFNGLBLITFRAMEBUFFERPROC glBlitFramebuffer;
+
+GLAPI PFNGLGENERATEMIPMAPPROC glGenerateMipmap;
 

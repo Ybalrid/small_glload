@@ -4,7 +4,7 @@
 PFNWGLCHOOSEPIXELFORMATARBPROC wglChoosePixelFormatARB = nullptr;
 PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribsARB = nullptr;
 PFNWGLSWAPINTERVALEXTPROC wglSwapIntervalEXT  = nullptr;
-#endif 
+#endif
 
 void* (APIENTRY* small_glloader_get_proc_address)(const char*) = nullptr;
 
@@ -51,12 +51,14 @@ PFNGLFRAMEBUFFERTEXTURE2DPROC glFramebufferTexture2D = nullptr;
 PFNGLTEXIMAGE2DMULTISAMPLEPROC glTexImage2DMultisample  = nullptr;
 PFNGLBLITFRAMEBUFFERPROC glBlitFramebuffer = nullptr;
 
+PFNGLGENERATEMIPMAPPROC glGenerateMipmap = nullptr;
+
 
 bool small_glload_init()
 {
-	if (!small_glloader_get_proc_address) 
+	if (!small_glloader_get_proc_address)
 #ifdef _WIN32
-		small_glloader_get_proc_address 
+		small_glloader_get_proc_address
 			= reinterpret_cast<decltype(small_glloader_get_proc_address)>
 				(&wglGetProcAddress);
 #else
@@ -258,7 +260,7 @@ bool small_glload_init()
 	if (!glUniformMatrix4fv)
 		return false;
 #endif
-	
+
 	glUniform1f = reinterpret_cast<PFNGLUNIFORM1FPROC>
 	(small_glloader_get_proc_address("glUniform1f"));
 #if defined(SMALL_DEBUG)
@@ -309,11 +311,18 @@ bool small_glload_init()
 	if (!glTexImage2DMultisample)
 		return false;
 #endif
-	
+
 	glBlitFramebuffer = reinterpret_cast<PFNGLBLITFRAMEBUFFERPROC>
 	(small_glloader_get_proc_address("glBlitFramebuffer"));
 #if defined(SMALL_DEBUG)
 	if (!glBlitFramebuffer)
+		return false;
+#endif
+
+	glGenerateMipmap = reinterpret_cast<PFNGLGENERATEMIPMAPPROC>
+	(small_glloader_get_proc_address("glGenerateMipmap"));
+#if defined(SMALL_DEBUG)
+	if (!glGenerateMipmap)
 		return false;
 #endif
 
